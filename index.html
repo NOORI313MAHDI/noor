@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>با سپاهی از شهیدان خواهد آمد...</title>
+  <style>
+     body {
+      direction: rtl;
+      font-family: 'Vazirmatn', sans-serif;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: rgba(255,255,255,0.9);
+      margin: 80px auto;
+      padding: 30px;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    h1 {
+      color: #a00000;
+      margin-bottom: 20px;
+    }
+    select, input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #999;
+      width: 120px;
+      margin: 10px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 25px;
+      background-color: #b30000;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .results {
+      margin-top: 30px;
+      padding: 10px;
+      border-top: 1px solid #aaa;
+    }
+    .shaheed {
+      padding: 6px;
+      border-bottom: 1px dashed #ccc;
+    }
+  </style>
+</head>
+<body>
+
+   <div class="container">
+    <h1>با سپاهی از شهیدان خواهد آمد...</h1>
+    <p>ماه و روز تولد خود را وارد کنید:</p>
+  <select id="month">
+      <option value="">ماه</option>
+      <option value="1">فروردین</option>
+      <option value="2">اردیبهشت</option>
+      <option value="3">خرداد</option>
+      <option value="4">تیر</option>
+      <option value="5">مرداد</option>
+      <option value="6">شهریور</option>
+      <option value="7">مهر</option>
+      <option value="8">آبان</option>
+      <option value="9">آذر</option>
+      <option value="10">دی</option>
+      <option value="11">بهمن</option>
+      <option value="12">اسفند</option>
+    </select>
+
+    <input type="number" id="day" placeholder="روز" min="1" max="31">
+  <button onclick="searchShaheed()">رفیق عزیزم </button>
+
+  <div class="results" id="results"></div>
+
+    <script>
+    const shaheedData = [
+      { name: "حبیب الله ابراهیمی", birth: "1339/11/03" },
+      { name: "محسن احمدپور", birth: "1344/01/14" },
+      { name: "حسین احسن زاده آرانی", birth: "1340/05/01" },
+  { name: "محمدحسین مومنیان نجار", birth: "1345/07/09" },
+  { name: "عبدالجواد مهرانی", birth: "1337/01/25" },
+  { name: "عباس میرزایی(شاه میرزایی)", birth: "1342/02/04" },
+  { name: "سید مهدی ناجی اصفهانی", birth: "1341/01/07" },
+  { name: "حبیب الله نبی خورزوقی", birth: "1345/07/04" },
+   { name: "علی نظریان", birth: "1346/02/05" },
+  { name: "محمد نوروزی سروعلیا", birth: "1343/08/01" },
+  { name: "حسن ودائی", birth: "1345/03/12" },
+  { name: "محمود وکیلی", birth: "1345/05/05" },
+ { name: "سیدساعد هاشمی فشارکی", birth: "1340/04/20" },
+  { name: "محسن هاشمی نژاد نوش آبادی", birth: "1342/01/01" },
+ { name: "فرهاد همدانیان پور", birth: "1342/01/01" },
+  { name: "قاسم یاوری", birth: "1342/01/04" },
+  { name: "مهدی یزدان", birth: "1347/08/06" },
+  { name: "گودرز یعقوبی", birth: "1348/01/03" },
+  { name: "عبادالله سهرابی", birth: "1344/05/10" },
+  { name: "سیدمحمد سیدی طبایی زواره", birth: "1346/02/05" },
+  { name: "حسن شاخوسی آرائی", birth: "1340/01/02" },
+  { name: "غلام رضا شاه میرزایی بیدگلی", birth: "1342/01/02" },
+  { name: "مصطفی شبان میمه", birth: "1335/11/01" },
+  { name: "عبدالرسول شکوهی", birth: "1340/09/01" },
+{ name: "محمود شهبازی", birth: "1337/11/01" },
+  { name: "علیرضا شهرینانی(شهرنیانی)", birth: "1342/05/01" },
+  { name: "پرویز شیرازی", birth: "1339/05/07" },
+  { name: "عباس شیخ محمدی", birth: "1350/01/01" },
+  { name: "بهروز صابری", birth: "1344/11/01" },
+  { name: "سیدمحمد صادقی اردستانی", birth: "1341/08/10" },
+  { name: "مسلم صادقی قهساره", birth: "1342/02/12" },
+  { name: "محمدرضا صالحی مورگانی", birth: "1347/01/01" },
+  { name: "داوود صلاتی آرانی", birth: "1342/02/20" },
+  { name: "حسن طحانی ساز", birth: "1338/09/28" },
+  { name: "اکبر عابدینی برزی", birth: "1340/10/01" },
+  { name: "سید ابوالحسن عبادی", birth: "1346/01/01" },
+  { name: "مهدی عربیان نجف آبادی", birth: "1343/08/01" },
+  { name: "ابراهیم عزیزاللهی نجف آبادی", birth: "1345/02/05" },
+  { name: "مهرداد عزیزی نیا", birth: "1344/08/01" },
+  { name: "علی اصغر عشاق", birth: "1349/03/01" },
+  { name: "عین الله علایی", birth: "1343/10/03" },
+  { name: "سید مرتضی غلافگر", birth: "1336/05/20" },
+  { name: "عباس غیرتی آرانی", birth: "1344/08/01" },
+  { name: "سیدحسن فخریان", birth: "1345/01/03" },
+  { name: "علی اکبر قاسمیان دهاقانی", birth: "1346/05/02" },
+  { name: "عباس قدیری قلعه ناظری", birth: "1341/06/15" },
+  { name: "احمد قدیریان مارنانی", birth: "1334/03/03" },
+  { name: "حسنعلی کاظمی نجف آبادی", birth: "1344/05/25" },
+  { name: "محمدحسین کاظمی", birth: "1345/02/01" },
+  { name: "مسعود کرباسیان ورنامخواستی", birth: "1341/09/18" },
+  { name: "محسن کرمانی نژاد", birth: "1346/06/05" },
+  { name: "علیرضا کریمی", birth: "1346/03/15" },
+  { name: "حسن کریمی علون آبادی", birth: "1345/05/04" },
+  { name: "حسین کریمی زفره", birth: "1345/06/29" },
+  { name: "مجتبی کلاهدوزان", birth: "1325/11/02" },
+  { name: "احمدرضا کوچکی عطاآبادی", birth: "1347/06/30" },
+  { name: "محمود گرجي ورنوسفادرا ني", birth: "1344/09/10" },
+  { name: "جمال محمدابراهیمی", birth: "1342/01/11" },
+  { name: "سیروس محمد خانی", birth: "1347/07/07" },
+  { name: "محمد محمدصالحی", birth: "1342/09/03" },
+  { name: "احمد محمدی دره بیدی", birth: "1341/04/01" },
+  { name: "سعید محمودیان عطاآبادی", birth: "1342/01/15" },
+  { name: "ابراهیم مختاری گرچگانی", birth: "1343/12/25" },
+  { name: "مرتضی مرتضائی", birth: "1343/08/09" },
+  { name: "سعید مصدق خواه", birth: "1340/06/26" },
+  { name: "محمد علی مطیع", birth: "1343/09/13" },
+  { name: "فرامرز مقصودی", birth: "1344/12/24" },
+  { name: "حبیب الله ابراهیمی", birth: "1339/11/03" },
+  { name: "محسن احمدپور", birth: "1344/01/14" },
+  { name: "حسین احسن زاده آرانی", birth: "1340/05/01" },
+  { name: "محمدرضا احتشامی", birth: "1342/08/06" },
+  { name: "محمود ادیبی پور", birth: "1345/06/30" },
+  { name: "احمدرضا آرایی", birth: "1341/06/29" },
+  { name: "سعید اربابی", birth: "1341/12/01" },
+  { name: "حشمت الله اعظمی", birth: "1341/08/03" },
+  { name: "رضا افتادگان بیدگلی", birth: "1342/05/01" },
+  { name: "علی اکبر افرازاسفنددارانی", birth: "1346/08/21" },
+  { name: "مرتضی افشاری", birth: "1344/07/01" },
+  { name: "ابوتراب افشاری", birth: "1346/02/12" },
+  { name: "قدرت الله آقایی چادگانی", birth: "1341/01/30" },
+  { name: "حبیب الله آقایی چادگانی", birth: "1347/05/15" },
+  { name: "علی اکبری", birth: "1342/08/03" },
+  { name: "جلال اکرامی نوش آبادی", birth: "1343/01/01" },
+  { name: "احمد امامی بافرانی", birth: "1342/06/10" },
+  { name: "مرتضی امینی هرندی", birth: "1343/01/07" },
+  { name: "محمدرضا امیری نجف آبادی", birth: "1338/05/23" },
+  { name: "سید مصطفی آیتی", birth: "1341/08/11" },
+  { name: "غلامرضا ایرج منش", birth: "1340/01/09" },
+  { name: "علی ایمانیان", birth: "1336/10/28" },
+  { name: "محسن باقرفراشلو", birth: "1340/01/29" },
+  { name: "عباس برکتین فرد", birth: "1342/08/03" },
+  { name: "محمد رضا بوسعیدی", birth: "1342/06/02" },
+  { name: "حسن بهرامیان", birth: "1340/05/03" },
+  { name: "یدالله بیگیان محمدی", birth: "1337/11/20" },
+  { name: "محمود بیگی حبیب آبادی", birth: "1340/04/08" },
+  { name: "اژدر بهمنی", birth: "1344/01/01" },
+  { name: "مرتضی پاگیری قلعه نویی", birth: "1341/01/20" },
+  { name: "امین الله ترکی هرچگانی", birth: "1345/04/10" },
+  { name: "جواد ترکی هرچگانی", birth: "1345/07/16" },
+  { name: "محسن تعظیمی", birth: "1339/09/20" },
+  { name: "حسن تقوی شاد", birth: "1339/06/01" },
+  { name: "محسن ثالثی", birth: "1344/11/20" },
+  { name: "مرتضی جعفری هرندی", birth: "1341/09/06" },
+  { name: "حسین جمشیدیان قلعه سفیدی", birth: "1343/04/01" },
+  { name: "علی اکبر جهانی مشهدی", birth: "1334/05/09" },
+  { name: "مهدی یزدان", birth: "1347/08/06" },
+{ name: "سعید اربابی", birth: "1341/12/01" },
+  { name: "گودرز یعقوبی", birth: "1348/01/03" }
+      // ... می‌تونی همه داده‌های موجود رو اینجا وارد کنی یا از فایل جدا بخونی
+    ];
+
+    function searchShaheed() {
+      const month = parseInt(document.getElementById("month").value);
+      const day = parseInt(document.getElementById("day").value);
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "";
+
+      const matched = shaheedData.filter(person => {
+        const [_, m, d] = person.birth.split("/");
+        return parseInt(m) === month && Math.abs(parseInt(d) - day) <= 2;
+      });
+
+      if (matched.length === 0) {
+        resultsDiv.innerHTML = "<p> شهیدی با این تاریخ تولد یافت نشد.</p>";
+      } else {
+        matched.forEach(person => {
+          const p = document.createElement("div");
+          p.className = "shaheed";
+          p.textContent = person.name + " - " + person.birth;
+          resultsDiv.appendChild(p);
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
